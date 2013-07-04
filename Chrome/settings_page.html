@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>NationStates++ Settings</title>
+        <link rel="stylesheet" type="text/css" href="settings_css.css">
+    </head>
+
+    <body>
+        <h1>NationStates++ Settings Page</h1>
+
+        <h2>Forums</h2>
+        <div id="forums">
+            <input type="checkbox" class="option option-global" id="forum-global" checked>
+                Use forum modifications
+                <br>
+
+            <div id="forum-opt" class="subopt-box">
+                <input type="checkbox" class="option option-forum" id="forum-ignore" checked>
+                    Add "ignore topic" buttons in View Your Posts
+                    <br>
+
+                <input type="checkbox" class="option option-forum" id="forum-postid" checked>
+                    Add post ID to each post
+                    <br>
+            </div>
+        </div>
+
+        <h2>Region Pages</h2>
+        <div id="regions">
+            <input type="checkbox" class="option option-global" id="region-global" checked>
+                Use region modifications
+                <br>
+
+            <div id="region-opt" class="subopt-box">
+                <input type="checkbox" class="option option-region" id="region-infscroll" checked>
+                    Use infinite scroll
+                    <br>
+            </div>
+        </div>
+        <div id="status" class="status-normal">
+            <button id="save-button">Save</button>
+            <div id="status-text"></div>
+        </div>
+    </body>
+    <footer>
+        <script src="settings_js.js"></script>
+    </footer>
+</html>

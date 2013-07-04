@@ -1,7 +1,29 @@
+// Helper function  (repeated from settings_js.js, is there a way to reuse the code? --Johz)
+function strToBool(string) {
+	if (string === "false") {
+		return false;
+	}
+	else {
+		return true;  // Defaults to true for undefined etc - hacky shortcut --Johz
+	}
+
+}
+
 function _nationstatesSetup() {
+
+	/* FIXME!
+	 *
+	 * To make adding settings quick and easy, each modification found in nationstates++.js and
+	 * nationstates++_forum.js has been split up into an individual file.  All of the helper files
+	 * (caret.js, highlight.js, various css files etc) are loaded in all cases for the moment
+	 * to preserve simplicity.  Need to fix this. --Johz
+	 *
+	 */
+
 	var pageUrl = window.location.href;
 	if (pageUrl.indexOf('http://www.nationstates.net/') > -1) {
 		console.log('[NationStates++] Detected NationStates Page. Loading...');
+
 		//Add commons js
 		loadFile('http://capitalistparadise.com/nationstates/v1_65/nationstates++_common.js', true);
 
@@ -33,7 +55,8 @@ function _nationstatesSetup() {
 		loadFile('http://capitalistparadise.com/nationstates/v1_65/nationstates++.js', true);
 
 		console.log('[NationStates++] Loading Completed Successfully.');
-	} else if (pageUrl.indexOf('http://forum.nationstates.net/') > -1) {
+	}
+	else if (pageUrl.indexOf('http://forum.nationstates.net/') > -1) {
 		console.log('[NationStates++] Detected NationStates Forum Page. Loading...');
 		//Add commons js
 		loadFile('http://capitalistparadise.com/nationstates/v1_65/nationstates++_common.js', true);
@@ -41,14 +64,23 @@ function _nationstatesSetup() {
 		//Forums do not have Jquery
 		loadFile('http://capitalistparadise.com/nationstates/v1_65/jquery-1.9.0.min.js', true);
 
-		// Add css stylesheet
+		// Add css stylesheets
 		loadFile('http://capitalistparadise.com/nationstates/v1_65/bootstrap-button.css', false);
 
 		loadFile('http://capitalistparadise.com/nationstates/v1_65/nationstates++.css', false);
 
-		//Add the NationStates++ script
-		loadFile('http://capitalistparadise.com/nationstates/v1_65/nationstates++_forum.js', true);
-		
+		if (!strToBool(localStorage["settings-forum-global"])) {
+
+			//Add the NationStates++ egosearch script
+			if (strToBool(localStorage["settings-forum-ignore"])) {
+				loadFile('https://dl.dropboxusercontent.com/u/102592460/1_66/nationstates%2B%2B_forum/egosearch.js', true);
+			}
+
+			if (strToBool(localStorage["settings-forum-postid"])) {
+				loadFile('https://dl.dropboxusercontent.com/u/102592460/1_66/nationstates%2B%2B_forum/postid.js', true);
+			}
+		}
+
 		console.log('[NationStates++] Loading Completed Successfully.');
 	}
 };
