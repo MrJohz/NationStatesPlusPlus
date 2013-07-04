@@ -1,5 +1,5 @@
 // Helper function  (repeated from settings_js.js, is there a way to reuse the code? --Johz)
-function strToBool(string) {
+function str_to_bool(string) {
 	if (string === "false") {
 		return false;
 	}
@@ -51,13 +51,22 @@ function _nationstatesSetup() {
 			loadFile('http://capitalistparadise.com/nationstates/v1_65/nationstates++_antiquity.css', false);
 		}
 
-		// Add NationStates++ script
-		loadFile('http://capitalistparadise.com/nationstates/v1_65/nationstates++.js', true);
+		// Global check on whether to load region changes
+		chrome.storage.sync.get("settings-region-global", function(region) {
+			if (region["settings-region-global"]) {
+
+				// This script needs to be split up into smaller pieces so that individual items can be switched on or off.
+				// For now, I'm more interested in getting an actual settings page up for FF & Chrome
+				loadFile('http://capitalistparadise.com/nationstates/v1_65/nationstates++.js', true);
+
+			}
+		});
 
 		console.log('[NationStates++] Loading Completed Successfully.');
 	}
 	else if (pageUrl.indexOf('http://forum.nationstates.net/') > -1) {
 		console.log('[NationStates++] Detected NationStates Forum Page. Loading...');
+
 		//Add commons js
 		loadFile('http://capitalistparadise.com/nationstates/v1_65/nationstates++_common.js', true);
 
@@ -69,17 +78,25 @@ function _nationstatesSetup() {
 
 		loadFile('http://capitalistparadise.com/nationstates/v1_65/nationstates++.css', false);
 
-		if (!strToBool(localStorage["settings-forum-global"])) {
+		// Global check on whether to load forum changes
+		chrome.storage.sync.get("settings-forum-global", function(forum) {
+			if (forum["settings-forum-global"]) {
 
-			//Add the NationStates++ egosearch script
-			if (strToBool(localStorage["settings-forum-ignore"])) {
-				loadFile('https://dl.dropboxusercontent.com/u/102592460/1_66/nationstates%2B%2B_forum/egosearch.js', true);
-			}
+				// Optionally add the egosearch script
+				chrome.storage.sync.get("settings-forum-egosearch", function(egosearch) {
+					if (egosearch["settings-forum-egosearch"]) {
+						loadFile('https://dl.dropboxusercontent.com/u/102592460/nationstatesplusplus/nationstates%2B%2B_forum/egosearch.js', true);
+					}
+				});
 
-			if (strToBool(localStorage["settings-forum-postid"])) {
-				loadFile('https://dl.dropboxusercontent.com/u/102592460/1_66/nationstates%2B%2B_forum/postid.js', true);
+				// Optionally add the postid script
+				chrome.storage.sync.get("settings-forum-postid", function(postid) {
+					if (postid["settings-forum-postid"]) {
+						loadFile('https://dl.dropboxusercontent.com/u/102592460/nationstatesplusplus/nationstates%2B%2B_forum/postid.js', true);
+					}
+				});
 			}
-		}
+		});
 
 		console.log('[NationStates++] Loading Completed Successfully.');
 	}

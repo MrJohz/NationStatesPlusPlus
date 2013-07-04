@@ -26,7 +26,6 @@ function setupPostId() {
 	} else {
 		nation = nationSelector.text().substring(9, nationSelector.text().length - 2);
 	}
-	console.log("Nation: " + nation);
 
 	$("div.post").each(function() {
 		// Stopped the post ID from being evaluated multiple times, and shortened some line-lengths for readability. --Johz

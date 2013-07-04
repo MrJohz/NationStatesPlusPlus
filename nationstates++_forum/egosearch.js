@@ -26,7 +26,6 @@ function setupForums() {
 	} else {
 		nation = nationSelector.text().substring(9, nationSelector.text().length - 2);
 	}
-	console.log("Nation: " + nation);
 
 	//Search page
 	if (pageUrl.indexOf("/search.php?") > -1) {

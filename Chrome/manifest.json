@@ -3,7 +3,7 @@
   "name": "NationStates++",
   "minimum_chrome_version": "22",
   "description": "Improves the NationStates Regional Message Board experience",
-  "version": "1.66",
+  "version": "1.7",
   "options_page": "settings_page.html",
   "content_scripts": [ {
 	  "run_at": "document_start",
